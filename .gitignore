@@ -1,0 +1,15 @@
+# anything starting with a point should not go in, this will automatically 
+# take away 99% of folders from ide environments and such - and if you need 
+# to let a hidden file in, just '!' ignore it
+.*
+!.gitignore
+!.scalafmt.conf
+
+# compiled .class files should also not go in
+*.class
+
+# cache files, needless to say, should not go in
+*.cache
+
+# target files, which are usually for build operations... should not go in
+**/target/**
