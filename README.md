@@ -1,7 +1,7 @@
 BareWiki Dumper
 ===
 
-Very minimalist wikipedia dump processor, that should be able to achieve approximately 1000 pages and revisions per second in most modern machines, directly from the bz2 archive - no archive extraction needed. Importing the whole Wikipedia dump with approximately 22 million formulas in 6 hours and a couple of minutes.
+Very minimalist wikipedia dump processor, that should be able to achieve approximately 1000 pages and revisions per second in most modern machines, directly from the bz2 archive - no archive extraction needed. Importing the whole Wikipedia dump with approximately 22 million pages/revisions in 6 hours and a couple of minutes.
 
 Performance may vary, please configure your database accordingly, and know that database connections are calculated as:
 
