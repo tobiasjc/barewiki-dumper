@@ -1,31 +1,16 @@
 package org.barewiki
 package sinks
 
-import org.postgresql.core.SqlCommand
-import org.postgresql.core.SqlCommandType
 import org.slf4j.LoggerFactory
 
 import java.io.Closeable
 import java.sql.Connection
-import java.sql.DatabaseMetaData
 import java.sql.DriverManager
-import java.sql.PreparedStatement
 import java.sql.Timestamp
 import java.sql.Types
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.OffsetDateTime
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
-import java.time.chrono.ChronoLocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
-import java.time.temporal.ChronoUnit
-import java.time.temporal.TemporalField
-import java.time.temporal.TemporalUnit
 import java.util.Properties
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.HashMap
 import scala.util.Using

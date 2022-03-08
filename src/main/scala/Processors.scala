@@ -1,40 +1,17 @@
 package org.barewiki
 package processors
 
-import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream
-import org.barewiki.sinks._
-import org.barewiki.streams._
+import org.barewiki.sinks.SinkSender
+import org.barewiki.streams.StreamLoader
 import org.slf4j.LoggerFactory
 
-import java.io.BufferedInputStream
-import java.io.ByteArrayInputStream
-import java.io.File
-import java.io.IOException
 import java.io.InputStream
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.Properties
 import java.util.concurrent.Callable
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.CompletionService
-import java.util.concurrent.Executor
-import java.util.concurrent.ExecutorCompletionService
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import java.util.concurrent.Future
-import java.util.concurrent.ThreadFactory
-import java.util.concurrent.TimeUnit
-import javax.annotation.processing.Completions
-import javax.management.modelmbean.XMLParseException
 import javax.xml.namespace.QName
-import javax.xml.stream.XMLEventFactory
 import javax.xml.stream.XMLEventReader
 import javax.xml.stream.XMLInputFactory
-import javax.xml.stream.XMLStreamException
 import javax.xml.stream.events.XMLEvent
-import javax.xml.stream.util.XMLEventAllocator
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ListBuffer
 
@@ -69,7 +46,7 @@ class XMLStreamHeaderProcessor(
 
   def handleSiteinfo: HashMap[String, String] =
     val siteinfo = HashMap[String, String]()
-    var namespaces = ListBuffer[HashMap[String, String]]()
+    var namespaces = ListBuffer[mutable.HashMap[String, String]]()
 
     while xmler.hasNext do
       val xmlne = xmler.nextEvent

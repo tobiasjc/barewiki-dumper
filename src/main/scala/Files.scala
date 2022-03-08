@@ -1,9 +1,10 @@
 package org.barewiki
 package files
 
-import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream
+import org.barewiki.processors.XMLStreamHeaderProcessor
 import org.barewiki.processors.XMLStreamPageProcessor
-import org.barewiki.sinks._
+import org.barewiki.sinks.SQL.SinkSender
+import org.barewiki.streams.StreamLoader
 import org.slf4j.LoggerFactory
 
 import java.nio.file.Files
@@ -13,12 +14,8 @@ import java.util.concurrent.ExecutorCompletionService
 import java.util.concurrent.Executors
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.TimeUnit
-import scala.collection.mutable.ArrayBuffer
-import org.barewiki.processors.XMLStreamHeaderProcessor
-import java.io.ByteArrayInputStream
-import java.io.BufferedInputStream
-import org.barewiki.streams.StreamLoader
 import javax.xml.stream.XMLInputFactory
+import scala.collection.mutable.ArrayBuffer
 
 object FileLoaderThreadFactory extends ThreadFactory:
   val name = "File Loader"
