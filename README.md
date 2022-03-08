@@ -11,4 +11,4 @@ If you don't want to use the default configurations, please create your own conf
 
 > java -jar barewiki-dumper-1.0.jar your-file-path-here.properties
 
-The way this dump processor was designed is to be very expansible. If you with to change anything, or add more functionality, I recommend you forking this repository from a desirable point and making it your own.
+The way this dump processor was designed is to be very expansible. If you wish to change anything, or to add more functionality, I would recommend you forking this repository from a desirable point and making it your own.
