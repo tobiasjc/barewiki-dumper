@@ -152,7 +152,7 @@ object SQL:
   val dtf = DateTimeFormatter.ISO_INSTANT
 
   object Connector:
-    val logger = LoggerFactory.getLogger(this.getClass)
+    val log = LoggerFactory.getLogger(this.getClass)
 
     def getConnection(props: Properties): Connection =
       val url =
@@ -165,7 +165,7 @@ object SQL:
       DriverManager.getConnection(url)
 
   class SinkAssert(props: Properties) extends org.barewiki.sinks.SinkAssert:
-    val logger = LoggerFactory.getLogger(this.getClass)
+    val log = LoggerFactory.getLogger(this.getClass)
     val conn = Connector.getConnection(props)
 
     def assertColumnTables(
@@ -174,7 +174,7 @@ object SQL:
         columns: ArrayBuffer[(String, String)],
         composite: ArrayBuffer[String]
     ): Unit =
-      logger.debug("Asserting columns for table {}", table)
+      log.debug("Asserting columns for table {}", table)
 
       val md = conn.getMetaData
       Using(md.getTables(database, null, table, Array("TABLE"))) { rs =>
@@ -210,7 +210,7 @@ object SQL:
         table: String,
         indexes: ArrayBuffer[(String, ArrayBuffer[String])]
     ): Unit =
-      logger.debug("Asserting indexes for table {}", table)
+      log.debug("Asserting indexes for table {}", table)
 
       val md = conn.getMetaData
       Using(md.getIndexInfo(database, null, table, false, false)) { rs =>
@@ -233,7 +233,7 @@ object SQL:
           (String, ArrayBuffer[String], String, ArrayBuffer[String])
         ]
     ): Unit =
-      logger.debug("Asserting foreign keys for table {}", table)
+      log.debug("Asserting foreign keys for table {}", table)
 
       val md = conn.getMetaData
       Using(md.getImportedKeys(database, null, table)) { rs =>
@@ -252,7 +252,7 @@ object SQL:
       }
 
     def assert: Unit =
-      logger.info("Running assert methods")
+      log.info("Running assert methods")
 
       val database = props.getProperty("database.name")
 
@@ -303,7 +303,7 @@ object SQL:
   class SinkSender(props: Properties)
       extends Closeable
       with org.barewiki.sinks.SinkSender:
-    val logger = LoggerFactory.getLogger(this.getClass)
+    val log = LoggerFactory.getLogger(this.getClass)
 
     val connPage = Connector.getConnection(props)
     val psPage = connPage.prepareStatement(

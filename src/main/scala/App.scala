@@ -19,7 +19,7 @@ import scala.io.Source
 import scala.jdk.CollectionConverters._
 
 object App:
-  val logger = LoggerFactory.getLogger(this.getClass)
+  val log = LoggerFactory.getLogger(this.getClass)
 
   val props: Properties = new Properties()
 
@@ -46,7 +46,7 @@ object App:
       filesExecutorService
     )
 
-    logger.info(
+    log.info(
       "Executing over files on repository {}",
       props.getProperty("data.repository.articles", "/var/wikidata/bz2/")
     )
@@ -74,12 +74,12 @@ object App:
         totalPagesCounter += receivedPages
         doneFilesCounter += 1
 
-      logger.info(
+      log.info(
         "File loaders turn received a total of {} pages",
         totalPagesCounter
       )
 
-    logger.info(
+    log.info(
       "Total of {} pages processed from {} files",
       totalPagesCounter,
       doneFilesCounter
