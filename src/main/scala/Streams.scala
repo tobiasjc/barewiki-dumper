@@ -7,22 +7,22 @@ import org.slf4j.LoggerFactory
 import java.io.BufferedInputStream
 import java.io.ByteArrayInputStream
 import java.io.InputStream
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.ListBuffer
 
 object StreamLoader:
   val log = LoggerFactory.getLogger(this.getClass)
 
-  def getStreamBuffer(inputStream: InputStream): ArrayBuffer[Byte] =
-    var ba = ArrayBuffer[Byte]()
+  def getStreamBuffer(inputStream: InputStream): ListBuffer[Byte] =
+    var lb = ListBuffer[Byte]()
 
     synchronized {
-      try ba ++= BZip2CompressorInputStream(inputStream).readAllBytes
+      try lb ++= BZip2CompressorInputStream(inputStream).readAllBytes
       catch
         case e =>
           log.debug(e.getMessage)
           return null
     }
-    ba
+    lb
 
   def getStream(inputStream: InputStream): InputStream =
     BufferedInputStream(
@@ -34,9 +34,11 @@ object StreamLoader:
 
     if content == null then return null
 
-    val ba = ArrayBuffer[Byte]()
-    ba ++= "<document>".getBytes
-    ba ++= content
-    ba ++= "</document>".getBytes
-
-    BufferedInputStream(ByteArrayInputStream(ba.toArray))
+    BufferedInputStream(
+      ByteArrayInputStream(
+        (content
+          .prependAll("<document>".getBytes)
+          .appendAll("</document>".getBytes))
+          .toArray
+      )
+    )
